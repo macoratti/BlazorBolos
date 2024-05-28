@@ -1,0 +1,29 @@
+﻿<MudDialog @rendermode="RenderMode.InteractiveServer">
+    <DialogContent>
+        <MudTextField T="string" Label="Nome" @bind-Value="bolo.Nome" Lines=2 />
+        <MudTextField T="decimal" Label="Preco" @bind-Value="bolo.Preco" Format="C2" />
+        <MudTextField T="string" Label="Descricao" @bind-Value="bolo.Descricao" Lines=4 />
+        <MudTextField T="string" Label="ImagemUrl" @bind-Value="bolo.ImagemUrl" Lines=4 />
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancela">Cancela</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter]
+    MudDialogInstance? MudDialog { get; set; }
+
+    [Parameter]
+    public Bolo bolo { get; set; } = new Bolo();
+
+    private void Cancela()
+    {
+        MudDialog?.Cancel();
+    }
+
+    private void Submit()
+    {
+        MudDialog?.Close(DialogResult.Ok<Bolo>(bolo));
+    }
+}
